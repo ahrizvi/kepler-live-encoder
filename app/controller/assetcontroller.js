@@ -11,7 +11,6 @@ var bcrypt = require('bcryptjs');
 
 
 exports.index = (req, res) => {
-    const Asset = db.asset;
     res.status(200).json({
         "description": "Express Index",
         "Page": "Index"
@@ -19,12 +18,10 @@ exports.index = (req, res) => {
 }
 
 exports.assetcreate = (req, res) => {
-
-
     // Save asset to Database
     console.log("Processing asset -> Create");
 
-    asset.create({
+    Asset.create({
         name: req.body.name,
         input_location: req.body.inloc,
         input_interface: req.body.inintfs,
@@ -45,10 +42,7 @@ exports.assetcreate = (req, res) => {
         output_nix_procid: 00000,
         active: 0
 
-  }).then(asset => {
+    }).then(asset => {
         res.status(200).send('Test Response');
     })
 }
-
-//new assetcontroller0
-
