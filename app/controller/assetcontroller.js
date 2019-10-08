@@ -43,8 +43,8 @@ Asset.create({
     output_nix_procid: 00000,
     active: 0
 
-}).then(newAsset => {
-  console.log(`New ${newAsset.name}, with id ${newAsset.id} has been created.`);
-});
-
+}).then(asset => {
+        res.status(200).send('Test Response');
+    })
 }
+
