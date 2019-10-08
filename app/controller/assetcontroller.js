@@ -49,7 +49,7 @@ exports.assetcreate = (req, res) => {
     }).catch(err => {
         res.status(500).json({
             "description": "Can not create Asset",
-            "error": err
+            "error": err.message
         });
     })
 }
