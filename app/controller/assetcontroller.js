@@ -41,18 +41,10 @@ Asset.create({
     output_sdt_spname: req.body.outsdtspn,
     output_sdt_sname: req.body.outsdtsn,
     output_nix_procid: 00000,
-    active: 0,
-    createdAt: NOW();
-    updatedAt: NOW();
+    active: 0
 
 }).then(newAsset => {
-    console.log(`New Channel ${newAsset.name}, with id ${newAsset.id} has been created.`).then(() => {
-        res.send("User registered successfully!");
-    });
-}).catch(err => {
-    res.status(500).send("Error -> " + err);
+  console.log(`New ${newAsset.name}, with id ${newAsset.id} has been created.`);
 });
-}).catch(err => {
-    res.status(500).send("Fail! Error -> " + err);
-})
+
 }

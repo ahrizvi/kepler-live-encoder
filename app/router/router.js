@@ -3,8 +3,8 @@ const authJwt = require('./verifyJwtToken');
 
 module.exports = function(app) {
 
-    const controller = require('../controller/usercontroller.js');
-    const controller = require('../controller/assetcontroller.js');
+    const usercontroller = require('../controller/usercontroller.js');
+    const assetcontroller = require('../controller/assetcontroller.js');
 
     app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], usercontroller.signup);
 
@@ -17,6 +17,9 @@ module.exports = function(app) {
     app.get('/api/test/admin', [authJwt.verifyToken, authJwt.isAdmin], usercontroller.adminBoard);
 
     app.get('/api/index', assetcontroller.index);
+
+    app.post('/api/assetcreate', assetcontroller.assetcreate);
+
 
     //app.get('/api/userslist', [authJwt.verifyToken], controller.userslist); 
 
