@@ -43,6 +43,13 @@ exports.assetcreate = (req, res) => {
         active: 0
 
     }).then(asset => {
-        res.status(200).send('Test Response');
+        res.status(200).json({
+            "Result": "Asset has been created successfuly"
+        });
+    }).catch(err => {
+        res.status(500).json({
+            "description": "Can not create Asset",
+            "error": err
+        });
     })
 }
