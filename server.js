@@ -15,10 +15,10 @@ console.log
 
 
 // force: true will drop the table if it already exists
-//db.sequelize.sync({force: false}).then(() => {
-//  console.log('Drop and Resync with { force: true }');
-//  initial();
-//});
+db.sequelize.sync({ force: false }).then(() => {
+    console.log('Drop and Resync with { force: true }');
+    initial();
+});
 
 //require('./app/route/project.route.js')(app);
 
