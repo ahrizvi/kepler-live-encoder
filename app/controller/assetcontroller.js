@@ -20,6 +20,7 @@ exports.index = (req, res) => {
 
 exports.assetcreate = (req, res) => {
 
+
     // Save asset to Database
     console.log("Processing asset -> Create");
 
@@ -44,8 +45,10 @@ exports.assetcreate = (req, res) => {
         output_nix_procid: 00000,
         active: 0
 
-    }).then(newasset => {
-        console.log(`New ${newAsset.name}, with id ${newAsset.id} has been created.`);
-    });
-
+  }).then(asset => {
+        res.status(200).send('Test Response');
+    })
 }
+
+//new assetcontroller0
+
