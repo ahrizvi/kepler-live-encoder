@@ -33,9 +33,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         output_vid_logopath: {
-	    type: Sequelize.STRING
-	},
-	output_vid_logo_xaxis: {
+            type: Sequelize.STRING
+        },
+        output_vid_logo_xaxis: {
             type: Sequelize.INTEGER
         },
         output_vid_logo_yaxis: {
