@@ -32,7 +32,10 @@ module.exports = (sequelize, Sequelize) => {
         output_vid_bitrate: {
             type: Sequelize.INTEGER
         },
-        output_vid_logo_xaxis: {
+        output_vid_logopath: {
+	    type: Sequelize.STRING
+	},
+	output_vid_logo_xaxis: {
             type: Sequelize.INTEGER
         },
         output_vid_logo_yaxis: {
@@ -55,12 +58,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         output_nix_procid: {
             type: Sequelize.INTEGER
-        },
-        created_at: {
-            type: Sequelize.TIMESTAMP
-        },
-        modified_at: {
-            type: Sequelize.TIMESTAMP
         },
         active: {
             type: Sequelize.STRING
