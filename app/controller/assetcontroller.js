@@ -58,36 +58,38 @@ exports.assetupdate = (req, res) => {
     // update asset in Database
     console.log("Processing asset -> update");
 
-    Asset.update({
-            name: req.body.name,
-            input_location: req.body.inloc,
-            input_interface: req.body.inintfs,
-            output_location: req.body.outloc,
-            output_interface: req.body.outintfs,
-            output_vid_res: req.body.outvdores,
-            output_vid_fps: req.body.outvdofps,
-            output_vid_codec: req.body.outvdocodec,
-            output_vid_bitrate: req.body.outvdobitrt,
-            output_vid_logopath: req.body.outlogopth,
-            output_vid_logo_xaxis: req.body.outlogoxax,
-            output_vid_logo_yaxis: req.body.outlogoyax,
-            output_aud_codec: req.body.outaudcodec,
-            output_aud_bitrate: req.body.outaudbitrt,
-            output_muxrate: req.body.outmuxrt,
-            output_sdt_spname: req.body.outsdtspn,
-            output_sdt_sname: req.body.outsdtsn,
-            output_nix_procid: 00000,
-            active: 0
-        }
+    Asset.update(
+           {name: req.body.name,
+            input_location: req.body.inloc},
+           // input_interface: req.body.inintfs,
+           // output_location: req.body.outloc,
+           // output_interface: req.body.outintfs,
+           // output_vid_res: req.body.outvdores,
+           // output_vid_fps: req.body.outvdofps,
+           // output_vid_codec: req.body.outvdocodec,
+           // output_vid_bitrate: req.body.outvdobitrt,
+           // output_vid_logopath: req.body.outlogopth,
+           // output_vid_logo_xaxis: req.body.outlogoxax,
+           // output_vid_logo_yaxis: req.body.outlogoyax,
+           // output_aud_codec: req.body.outaudcodec,
+           // output_aud_bitrate: req.body.outaudbitrt,
+           // output_muxrate: req.body.outmuxrt,
+           // output_sdt_spname: req.body.outsdtspn,
+           // output_sdt_sname: req.body.outsdtsn,
+           // output_nix_procid: 00000,
+           // active: 0},
+//            {where:req.body.id})
+	     {where: { id: req.body.id }})
 
-        where: { id: req.userId }).then(asset => {
-        res.status(200).json({
+	   // console.log(req.body.id)
+	    
+            .then(asset => {res.status(200).json({
             "Result": "Asset has been updated"
-        });
-    }).catch(err => {
-        res.status(500).json({
+             });
+           }).catch(err => {
+           res.status(500).json({
             "description": "Can not update Asset",
             "error": err.message
-        });
-    })
+           });
+      })
 }

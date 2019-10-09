@@ -21,5 +21,8 @@ module.exports = function(app) {
 //    app.post('/api/assetcreate',[authJwt.verifyToken, authJwt.isAdmin],assetcontroller.assetcreate);
 
     app.post('/api/assetcreate',assetcontroller.assetcreate);
+	
+    app.post('/api/assetupdate/',assetcontroller.assetupdate);    
+
 
 }
