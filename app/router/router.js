@@ -18,9 +18,8 @@ module.exports = function(app) {
 
     app.get('/api/index', assetcontroller.index);
 
-    app.post('/api/assetcreate', assetcontroller.assetcreate);
+//    app.post('/api/assetcreate',[authJwt.verifyToken, authJwt.isAdmin],assetcontroller.assetcreate);
 
-
-    //app.get('/api/userslist', [authJwt.verifyToken], controller.userslist); 
+    app.post('/api/assetcreate',assetcontroller.assetcreate);
 
 }
