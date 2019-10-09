@@ -1,0 +1,20 @@
+#!/bin/sh
+ethaddr=`cat /var/config/stbinfo.conf | grep ethaddr | tr -d ethaddr= | tr -d :`
+
+seedrn=65000
+while [ $seedrn -ge 65000 ]; do
+  seedrn=1$(</dev/urandom tr -dc 0-9 | dd bs=5 count=1 2>/dev/null)
+  seedrn=$((seedrn-100000))
+done
+
+hold_time=`awk -v min=30 -v max=60 -v seed="$seedrn" 'BEGIN{srand(seed+0); print int(min+rand()*(max-min+1))}'`
+
+
+sleep $hold_time
+
+wget --no-cache --spider -o /var/log/authlog "http://play.tvnation.com:8080/idtvserver/Cybernet/OperatorApp/OperatorModule/Device/CSCybernet/CybernetOperator?ACTION=authenticateUniqueDevice&deviceUdid=$ethaddr&includeHousehold=true&includeHouseholdCommunities=true&CONTENT_READ_KEY=V0AOO25T8PUVNVWPAXGL998FABVG4OMM" 
+sleep 5
+_wgetHttpCode=`cat /var/log/authlog | gawk '/HTTP/{ print $2 }'`
+if [ "$_wgetHttpCode" != "300" ]; then
+    echo "There is an error"
+fi
