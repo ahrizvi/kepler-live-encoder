@@ -80,9 +80,10 @@ exports.assetupdate = (req, res) => {
             active: 0
         },
 
-        { where: { id: req.body.id } })
+        { where: { id: req.params.id } })
 
-    // console.log(req.body.id)
+//        console.log(req.body.name)
+//        console.log(req.body.inloc)
 
     .then(asset => {
         res.status(200).json({

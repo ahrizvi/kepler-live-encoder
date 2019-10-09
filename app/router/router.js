@@ -22,7 +22,7 @@ module.exports = function(app) {
 
     app.post('/api/assetcreate',assetcontroller.assetcreate);
 	
-    app.post('/api/assetupdate/',assetcontroller.assetupdate);    
+    app.post('/api/assetupdate/:id',assetcontroller.assetupdate);    
 
 
 }
