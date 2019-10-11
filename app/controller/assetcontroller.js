@@ -129,7 +129,7 @@ exports.AssetListOne = (req, res) => {
         });
     }).catch(err => {
         res.status(500).json({
-            "description": "Can not update Asset",
+            "description": "Can not get Asset parameters",
             "error": err.message
         });
     })
@@ -137,12 +137,12 @@ exports.AssetListOne = (req, res) => {
 exports.AssetDeleteOne = (req, res) => {
     console.log('assetdeleteone');
 
-    Asset.findByPk({
+    Asset.destroy({
         where: { id: req.params.id },
         //attributes: []
     }).then(assetdeleteone => {
         res.status(200).json({
-            "description": "Asset Delete Status",
+            "description": "Asset has Delete successfully",
             "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'
         });
     }).catch(err => {
