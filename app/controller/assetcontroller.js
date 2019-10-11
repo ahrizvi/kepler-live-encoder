@@ -117,7 +117,7 @@ exports.AssetListAll = (req, res) => {
 }
 
 exports.AssetListOne = (req, res) => {
-    console.log('assetList');
+    console.log('assetListone');
 
     Asset.findOne({
         where: { id: req.params.id },
@@ -125,7 +125,7 @@ exports.AssetListOne = (req, res) => {
     }).then(assetlistone => {
         res.status(200).json({
             "description": "Asset List",
-            "Result": assetlistall
+            "Result": assetlistone
         });
     }).catch(err => {
         res.status(500).json({
