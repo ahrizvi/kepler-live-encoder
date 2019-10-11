@@ -137,38 +137,25 @@ exports.AssetListOne = (req, res) => {
 exports.AssetDeleteOne = (req, res) => {
     console.log('assetdeleteone');
 
-    Asset.destroy({
-        where: { id: req.params.id },
-        //attributes: []
-    }).then(assetdeleteone => {
-        res.status(200).json({
-            "description": "Asset has been Delete successfully",
-            "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'
-        });
-    }).catch(err => {
-        res.status(500).json({
-            "description": "Can not Delete Asset",
-            "error": err.message
-        });
-    })
-}
-
-exports.AssetDelete1 = (req, res) => {
-    console.log('assetdeleteone');
-
     Asset.findOne({
         where: { id: req.params.id },
         //attributes: []
     }).then(assetdeleteone => {
-        Asset.destroy(assetdeleteone.id)
+	Asset.destroy({
+            where: {
+                id: assetdeleteone.id
+            }
+        });
         res.status(200).json({
             "description": "Asset has been Delete successfully",
-            "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'
-        });
+            "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'});
+
     }).catch(err => {
-        res.status(500).json({
+
+	res.status(500).json({
             "description": "Can not Delete Asset",
             "error": err.message
         });
     })
 }
+
