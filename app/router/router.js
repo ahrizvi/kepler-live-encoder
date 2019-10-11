@@ -24,7 +24,8 @@ module.exports = function(app) {
 
     app.post('/api/assetupdate/:id', assetcontroller.assetUpdate);
 
-    app.get('/api/assetlist/', assetcontroller.assetList);
+    app.get('/api/assetlist/', assetcontroller.AssetListAll);
 
+    app.get('/api/asset/:id/', assetcontroller.AssetListOne);
 
 }

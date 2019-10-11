@@ -97,23 +97,40 @@ exports.assetUpdate = (req, res) => {
     })
 }
 
-exports.assetList = (req, res) => {
-console.log('assetList');    
+exports.AssetListAll = (req, res) => {
+    console.log('assetList');
 
-Asset.findAll({
-      //  where: {id: 1},
-        attributes: ['name','input_location']
+    Asset.findAll({
+        //  where: {id: 1},
+        attributes: ['name', 'active']
     }).then(assetlistall => {
-     res.status(200).json({
-	    "description": "Asset List",
+        res.status(200).json({
+            "description": "Asset List",
             "Result": assetlistall
         });
-}).catch(err => {
-	res.status(500).json({
+    }).catch(err => {
+        res.status(500).json({
             "description": "Can not update Asset",
             "error": err.message
         });
-})
+    })
 }
 
+exports.AssetListOne = (req, res) => {
+    console.log('assetList');
 
+    Asset.findOne({
+        where: { id: req.params.id },
+        attributes: ['name', 'active']
+    }).then(assetlistone => {
+        res.status(200).json({
+            "description": "Asset List",
+            "Result": assetlistall
+        });
+    }).catch(err => {
+        res.status(500).json({
+            "description": "Can not update Asset",
+            "error": err.message
+        });
+    })
+}
