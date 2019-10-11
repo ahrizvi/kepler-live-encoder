@@ -98,25 +98,22 @@ exports.assetUpdate = (req, res) => {
 }
 
 exports.assetList = (req, res) => {
-    Asset.findAll({
-        //where: {id: req.userId},
-        attributes: ['name'],
-        //include: [{
-        //   model: Role,
-        //    attributes: ['id', 'name'],
-        //    through: {
-        //        attributes: ['userId', 'roleId'],
-        //   }
-        //}]
-    }).then(asset => {
-        res.status(200).json({
-            "description": "Asset List",
-            "Asset": name
+console.log('assetList');    
+
+Asset.findAll({
+      //  where: {id: 1},
+        attributes: ['name','input_location']
+    }).then(assetlistall => {
+     res.status(200).json({
+	    "description": "Asset List",
+            "Result": assetlistall
         });
-    }).catch(err => {
-        res.status(500).json({
-            "description": "Can not access Asset List",
-            "error": err
+}).catch(err => {
+	res.status(500).json({
+            "description": "Can not update Asset",
+            "error": err.message
         });
-    })
+})
 }
+
+
