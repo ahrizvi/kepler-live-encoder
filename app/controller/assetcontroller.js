@@ -41,7 +41,7 @@ exports.assetCreate = (req, res) => {
             "Result": "Asset has been created successfully"
         });
     }).catch(err => {
-        res.status(500).json({
+        res.status(400).json({
             "description": "Can not create Asset",
             "error": err.message
         });
@@ -84,7 +84,7 @@ exports.assetUpdate = (req, res) => {
             "Result": "Asset has been updated"
         });
     }).catch(err => {
-        res.status(500).json({
+        res.status(400).json({
             "description": "Can not update Asset",
             "error": err.message
         });
@@ -103,7 +103,7 @@ exports.AssetListAll = (req, res) => {
             "Result": assetlistall
         });
     }).catch(err => {
-        res.status(500).json({
+        res.status(400).json({
             "description": "Can not update Asset",
             "error": err.message
         });
@@ -122,7 +122,7 @@ exports.AssetListOne = (req, res) => {
             "Result": assetlistone
         });
     }).catch(err => {
-        res.status(500).json({
+        res.status(400).json({
             "description": "Can not get Asset parameters",
             "error": err.message
         });
@@ -136,6 +136,9 @@ exports.AssetDeleteOne = (req, res) => {
         where: { id: req.params.id },
         //attributes: []
     }).then(assetdeleteone => {
+        if (!assetdeleteone) {
+            return res.status(404).send('Asset Not Found.');
+        }
         Asset.destroy({
             where: {
                 id: assetdeleteone.id
@@ -151,7 +154,7 @@ exports.AssetDeleteOne = (req, res) => {
             //console.log(idchk);
             //if (err.message === "Cannot read property 'id' of null"){
         if (idchk === true) {
-            res.status(500).json({
+            res.status(400).json({
                 "description": "Asset does'nt exist or already deleted",
                 "error": err.message
             });
