@@ -137,7 +137,8 @@ exports.AssetDeleteOne = (req, res) => {
         //attributes: []
     }).then(assetdeleteone => {
         if (!assetdeleteone) {
-            return res.status(404).send('Asset Not Found.');
+            return res.status(404).json({ "error": "Asset Not Found")
+            };
         }
         Asset.destroy({
             where: {
