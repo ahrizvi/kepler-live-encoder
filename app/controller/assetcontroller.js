@@ -124,12 +124,30 @@ exports.AssetListOne = (req, res) => {
         //attributes: []
     }).then(assetlistone => {
         res.status(200).json({
-            "description": 'AssetID'+' '+ assetlistone.id +' '+'parameters',
+            "description": 'AssetID' + ' ' + assetlistone.id + ' ' + 'parameters',
             "Result": assetlistone
         });
     }).catch(err => {
         res.status(500).json({
             "description": "Can not update Asset",
+            "error": err.message
+        });
+    })
+}
+exports.AssetDeleteOne = (req, res) => {
+    console.log('assetdeleteone');
+
+    Asset.findByPk({
+        where: { id: req.params.id },
+        //attributes: []
+    }).then(assetdeleteone => {
+        res.status(200).json({
+            "description": "Asset Delete Status",
+            "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'
+        });
+    }).catch(err => {
+        res.status(500).json({
+            "description": "Can not Delete Asset",
             "error": err.message
         });
     })

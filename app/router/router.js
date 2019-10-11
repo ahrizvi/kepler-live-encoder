@@ -28,4 +28,6 @@ module.exports = function(app) {
 
     app.get('/api/asset/:id/', assetcontroller.AssetListOne);
 
+    app.post('/api/assetdelete/:id/', assetcontroller.AssetDeleteOne);
+
 }
