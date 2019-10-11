@@ -137,8 +137,7 @@ exports.AssetDeleteOne = (req, res) => {
         //attributes: []
     }).then(assetdeleteone => {
         if (!assetdeleteone) {
-            return res.status(404).json({ "error": "Asset Not Found")
-            };
+            return res.status(404).json({"error": "Asset not found or already deleted"});
         }
         Asset.destroy({
             where: {
@@ -147,24 +146,13 @@ exports.AssetDeleteOne = (req, res) => {
         });
         res.status(200).json({
             "description": "Asset has been deleted successfully",
-            "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'
+            "Result": 'Asset with ID' + ' ' + req.params.id + ' ' + 'has been deleted'
         });
 
     }).catch(err => {
-        var idchk = err.message.includes("'id' of null")
-            //console.log(idchk);
-            //if (err.message === "Cannot read property 'id' of null"){
-        if (idchk === true) {
-            res.status(400).json({
-                "description": "Asset does'nt exist or already deleted",
-                "error": err.message
-            });
-        } else {
             res.status(500).json({
-                "description": "Can not delete Asset due to an unknown error",
+                "description": "Asset can not be deleted due to an unknown error",
                 "error": err.message
             });
-        }
-
-    })
-}
+        })
+    }
