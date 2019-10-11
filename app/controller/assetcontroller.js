@@ -1,14 +1,8 @@
 const db = require('../config/db.config.js');
 const config = require('../config/config.js');
-const User = db.user;
-const Role = db.role;
 const Asset = db.asset;
 
 const Op = db.Sequelize.Op;
-
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
-
 
 exports.index = (req, res) => {
     res.status(200).json({
@@ -136,7 +130,7 @@ exports.AssetListOne = (req, res) => {
 }
 
 exports.AssetDeleteOne = (req, res) => {
-   // console.log('assetdeleteone');
+    // console.log('assetdeleteone');
 
     Asset.findOne({
         where: { id: req.params.id },
@@ -148,24 +142,25 @@ exports.AssetDeleteOne = (req, res) => {
             }
         });
         res.status(200).json({
-            "description": "Asset has been Delete successfully",
-            "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'});
+            "description": "Asset has been deleted successfully",
+            "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'
+        });
 
     }).catch(err => {
-        var idchk = err.message.includes("'cd' of null") 
-	//console.log(idchk);
-	//if (err.message === "Cannot read property 'id' of null"){
-        if (idchk === true){ 
-	res.status(500).json({
-            "description": "Asset does'nt exist or already deleted",
-            "error": err.message
-        });
-	}else{ res.status(500).json({
-             "description": "Can not Delete Asset due to an unknown error",
-             "error": err.message
-        });
-	}
+        var idchk = err.message.includes("'id' of null")
+            //console.log(idchk);
+            //if (err.message === "Cannot read property 'id' of null"){
+        if (idchk === true) {
+            res.status(500).json({
+                "description": "Asset does'nt exist or already deleted",
+                "error": err.message
+            });
+        } else {
+            res.status(500).json({
+                "description": "Can not delete Asset due to an unknown error",
+                "error": err.message
+            });
+        }
 
     })
 }
-
