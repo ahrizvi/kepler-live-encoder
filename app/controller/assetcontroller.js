@@ -134,14 +134,15 @@ exports.AssetListOne = (req, res) => {
         });
     })
 }
+
 exports.AssetDeleteOne = (req, res) => {
-    console.log('assetdeleteone');
+   // console.log('assetdeleteone');
 
     Asset.findOne({
         where: { id: req.params.id },
         //attributes: []
     }).then(assetdeleteone => {
-	Asset.destroy({
+        Asset.destroy({
             where: {
                 id: assetdeleteone.id
             }
@@ -151,11 +152,20 @@ exports.AssetDeleteOne = (req, res) => {
             "Result": 'Asset' + ' ' + req.params.id + ' ' + 'Deleted'});
 
     }).catch(err => {
-
+        var idchk = err.message.includes("'cd' of null") 
+	//console.log(idchk);
+	//if (err.message === "Cannot read property 'id' of null"){
+        if (idchk === true){ 
 	res.status(500).json({
-            "description": "Can not Delete Asset",
+            "description": "Asset does'nt exist or already deleted",
             "error": err.message
         });
+	}else{ res.status(500).json({
+             "description": "Can not Delete Asset due to an unknown error",
+             "error": err.message
+        });
+	}
+
     })
 }
 
