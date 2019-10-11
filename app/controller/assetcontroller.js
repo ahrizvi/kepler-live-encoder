@@ -121,10 +121,10 @@ exports.AssetListOne = (req, res) => {
 
     Asset.findOne({
         where: { id: req.params.id },
-        attributes: ['name', 'active']
+        //attributes: []
     }).then(assetlistone => {
         res.status(200).json({
-            "description": "Asset List",
+            "description": 'AssetID'+' '+ assetlistone.id +' '+'parameters',
             "Result": assetlistone
         });
     }).catch(err => {
