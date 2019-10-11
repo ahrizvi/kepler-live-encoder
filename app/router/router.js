@@ -18,11 +18,11 @@ module.exports = function(app) {
 
     app.get('/api/index', assetcontroller.index);
 
-//    app.post('/api/assetcreate',[authJwt.verifyToken, authJwt.isAdmin],assetcontroller.assetcreate);
+    //    app.post('/api/assetcreate',[authJwt.verifyToken, authJwt.isAdmin],assetcontroller.assetcreate);
 
-    app.post('/api/assetcreate',assetcontroller.assetcreate);
-	
-    app.post('/api/assetupdate/:id',assetcontroller.assetupdate);    
+    app.post('/api/assetcreate', assetcontroller.assetCreate);
+
+    app.post('/api/assetupdate/:id', assetcontroller.assetUpdate);
 
 
 }

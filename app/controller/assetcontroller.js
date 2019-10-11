@@ -17,7 +17,7 @@ exports.index = (req, res) => {
     });
 }
 
-exports.assetcreate = (req, res) => {
+exports.assetCreate = (req, res) => {
     // Save asset to Database
     console.log("Processing asset -> Create");
 
@@ -44,7 +44,7 @@ exports.assetcreate = (req, res) => {
 
     }).then(asset => {
         res.status(200).json({
-            "Result": "Asset has been created successfuly"
+            "Result": "Asset has been created successfully"
         });
     }).catch(err => {
         res.status(500).json({
@@ -54,7 +54,7 @@ exports.assetcreate = (req, res) => {
     })
 }
 
-exports.assetupdate = (req, res) => {
+exports.assetUpdate = (req, res) => {
     // update asset in Database
     console.log("Processing asset -> update");
 
@@ -82,8 +82,8 @@ exports.assetupdate = (req, res) => {
 
         { where: { id: req.params.id } })
 
-//        console.log(req.body.name)
-//        console.log(req.body.inloc)
+    //        console.log(req.body.name)
+    //        console.log(req.body.inloc)
 
     .then(asset => {
         res.status(200).json({
@@ -93,6 +93,30 @@ exports.assetupdate = (req, res) => {
         res.status(500).json({
             "description": "Can not update Asset",
             "error": err.message
+        });
+    })
+}
+
+exports.assetList = (req, res) => {
+    Asset.findAll({
+        //where: {id: req.userId},
+        attributes: ['name'],
+        //include: [{
+        //   model: Role,
+        //    attributes: ['id', 'name'],
+        //    through: {
+        //        attributes: ['userId', 'roleId'],
+        //   }
+        //}]
+    }).then(asset => {
+        res.status(200).json({
+            "description": "Asset List",
+            "Asset": name
+        });
+    }).catch(err => {
+        res.status(500).json({
+            "description": "Can not access Asset List",
+            "error": err
         });
     })
 }
