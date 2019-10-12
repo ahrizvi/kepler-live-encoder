@@ -35,4 +35,6 @@ module.exports = function(app) {
 
     app.get('/api/stream/listdir', streamcontroller.ListDir);
 
+    app.get('/api/stream/1', streamcontroller.StreamStart);
+
 }
