@@ -51,37 +51,29 @@ exports.ListDir = (req, res) => {
 
 exports.StreamStart = (req, res) => {
     console.log('streamstart');
-    let _url = req.query.url;
-    console.log(_url);
-    if (_url) {
 
-        res.writeHead(200, {
-            'Access-Control-Allow-Origin': '*',
-            'Connection': 'Keep-Alive',
-            'Content-Type': 'video/mp4'
-        });
+    let ffmpeg = child_process.spawn("ffmpeg", [
+        "-re",
+        "-i", "'udp://@239.195.4.3:5000?overrun_nonfatal=1&fifo_size=50000000'"
+        "-vcodec", "h264",
+        "-r", "25",
+        "-flags", "cgop+ilme",
+        "-sc_threshold", "1000000000",
+        "-b:v", "1.7M",
+        "-minrate:v", "1.5M",
+        "-maxrate:v", "1.5M",
+        "-bufsize:v", "2M",
+        "-acodec", "aac",
+        "-ac", "2",
+        "-b:a", "64k",
+        "-f", "mpegts", "'udp://10.100.40.15:7777?pkt_size=1316'"
+    ]);
+    // redirect transcoded ip-cam stream to http response
+    ffmpeg.stdout.pipe(res);
 
-        // transcode rtsp input from ip-cam to mp4 file format (video: h.264 | audio: aac)
-        let ffmpeg = child_process.spawn("ffmpeg", [
-            "-probesize", "2147483647",
-            "-analyzeduration", "2147483647",
-            "-i", _url,
-            "-vcodec", "copy",
-            "-f", "mp4",
-            "-movflags", "frag_keyframe+empty_moov+faststart",
-            "-frag_duration", "3600",
-            "pipe:1"
-        ]);
-
-        // redirect transcoded ip-cam stream to http response
-        ffmpeg.stdout.pipe(res);
-
-        // error logging
-        ffmpeg.stderr.setEncoding('utf8');
-        ffmpeg.stderr.on('data', (data) => {
-            console.log(data);
-        });
-    } else {
-        res.end();
-    }
+    // error logging
+    ffmpeg.stderr.setEncoding('utf8');
+    ffmpeg.stderr.on('data', (data) => {
+        console.log(data);
+    });
 }
