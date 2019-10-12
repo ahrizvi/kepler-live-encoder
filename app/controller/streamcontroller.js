@@ -14,7 +14,7 @@ exports.index = (req, res) => {
 exports.ListDir = (req, res) => {
     console.log('ListDir');
     const { exec } = require('child_process');
-    const child = exec("ls");
+    const child = exec("ls /anfal");
 
     child.stdout.on('data', (data) => {
         var resultsArr = data.split('\n')
@@ -40,11 +40,11 @@ exports.ListDir = (req, res) => {
 
     child.stderr.on('data', (data) => {
         console.error(`child stderr:\n${data}`);
-        var obj = {};
-        obj["Error" = `${data}`]
+      //  var obj = {};
+      //  obj["Error" = `${data}`]
         res.status(400).json({
             "description": "stderr",
-            "Result": obj
+            "Result": `${data}`
         });
     })
 }
