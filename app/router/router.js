@@ -5,6 +5,7 @@ module.exports = function(app) {
 
     const usercontroller = require('../controller/usercontroller.js');
     const assetcontroller = require('../controller/assetcontroller.js');
+    const streamcontroller = require('../controller/streamcontroller.js');
 
     app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], usercontroller.signup);
 
@@ -29,5 +30,7 @@ module.exports = function(app) {
     app.get('/api/asset/:id/', assetcontroller.AssetListOne);
 
     app.delete('/api/assetdelete/:id/', assetcontroller.AssetDeleteOne);
+
+    app.get('/api/stream/index', streamcontroller.index);
 
 }
