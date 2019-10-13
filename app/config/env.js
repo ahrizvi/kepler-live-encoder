@@ -1,7 +1,7 @@
 const env = {
   database: 'enigmalive_db',
-  username: 'root',
-  password: 'Cyber@321',
+  username: 'vmx',
+  password: 'verimatrix',
   host: 'localhost',
   dialect: 'mysql',
   pool: {

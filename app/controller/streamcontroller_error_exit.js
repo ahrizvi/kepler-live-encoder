@@ -88,13 +88,27 @@ exports.StartStream = (req, res) => {
                 "description": "Asset has been started successfully",
                 "Result": 'Asset with PID' + ' ' + procid + ' ' + 'has been started'
             });
- 	           
-	      var dummy = 'dummy1'
-	      console.log(dummy);
+	
+	          ffmpeg.on('exit', (statusCode) => {
+                    if (!statusCode === 0) {
+                        console.log('Process Crashed');
 
-	      ffmpeg.stderr.on('data', (err) => {
+                        res.status(500).json({
+                                "description": "Process Crashed",
+                                "error": 'Process Crashed'
+                            });
+                        }
+			})
+
+                    ffmpeg
+                        .stderr
+                        .on('data', (err) => {
                             console.log('err:', new String(err))
                         })
+
+                    res.status(500).json({
+                        "description": "Asset can not be started due to an error. Please check logs",
+                        "error": err.message
+                    })
 	})
- 
 }	

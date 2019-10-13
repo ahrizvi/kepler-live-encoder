@@ -35,7 +35,7 @@ module.exports = function(app) {
 
     app.get('/api/stream/listdir', streamcontroller.ListDir);
 
-    app.post('/api/stream/1', streamcontroller.StreamStart);
+    app.post('/api/stream/:id/', streamcontroller.StartStream);
 
    // app.get('/api/streampid/1', streamcontroller.StreamPID);
 }
