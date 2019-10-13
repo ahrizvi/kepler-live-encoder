@@ -114,3 +114,56 @@ exports.StartStream = (req, res) => {
     });
 
 }
+
+exports.StopStream = (req, res) => {
+    console.log('stopstream');
+
+    Asset.findOne({
+        where: { id: req.params.id },
+        //attributes: []
+    }).then(stopstream => {
+        if (!stopstream) {
+            return res.status(404).json({ "error": "Can Not Stop Stream, Invalid Asset ID" });
+        }
+        var streamIsActive = startstream.active
+        if (streamIsActive !== '1') {
+            return res.status(400).json({ "error": "Stream is already in 'Stop' State" });
+        }
+
+        var procid = stopstream.output_nix_procid
+        const { spawn } = require('child_process');
+        const ffmpeg = spawn('kill', ["-SIGTERM", procid], { detached: false });
+
+        stopstream.update({
+                output_nix_procid: 0,
+                active: 0
+            },
+
+            { where: { id: req.params.id } })
+
+        var dummy = 'dummy1'
+        console.log(dummy);
+
+        ffmpeg.stderr.on('data', (err) => {
+            console.log('err:', new String(err))
+            var errstr = err
+            var ifpidNotExists = errstr.includes("No such process");
+            if (ifpidNotExists == 'true') {
+
+                return res.status(200).json({
+                    "description": "Encoding Process Does'nt exist",
+                    "Result": 'Asset with PID' + ' ' + procid + ' ' + 'does not exist'
+                });
+            }
+        });
+
+        res.status(200).json({
+            "description": "Asset has been terminated successfully",
+            "Result": 'Asset with PID' + ' ' + procid + ' ' + 'has been stopped'
+        });
+
+    }).catch(err => {
+        res.status(500).send('Error -> ' + err);
+    });
+
+}
