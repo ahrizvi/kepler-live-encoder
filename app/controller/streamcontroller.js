@@ -88,10 +88,19 @@ exports.StartStream = (req, res) => {
             detached: true
         });
         var procid = ffmpeg.pid
-        console.log(procid) res.status(200).json({
+        console.log(procid)
+        res.status(200).json({
             "description": "Asset has been started successfully",
             "Result": 'Asset with PID' + ' ' + procid + ' ' + 'has been started'
         });
+
+        Asset.update({
+                output_nix_procid: procid
+                active: 1
+            },
+
+            { where: { id: req.params.id } })
+
 
         var dummy = 'dummy1'
         console.log(dummy);
