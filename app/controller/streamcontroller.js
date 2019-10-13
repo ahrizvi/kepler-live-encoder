@@ -56,12 +56,12 @@ exports.StartStream = (req, res) => {
         where: { id: req.params.id },
         //attributes: []
     }).then(startstream => {
-            if (!startstream) {
-                return res.status(404).json({ "error": "Can Not Start Stream, Invalid Asset ID" });
-            }
-            var streamIsActive = startstream.active
-            if (!streamIsActive == '0')
-                return res.status(400).json({ "error": "Stream is already Live" });
+        if (!startstream) {
+            return res.status(404).json({ "error": "Can Not Start Stream, Invalid Asset ID" });
+        }
+        var streamIsActive = startstream.active
+        if (!streamIsActive == '0') {
+            return res.status(400).json({ "error": "Stream is already Live" });
         }
 
         const input = "udp://239.195.4.3:5000/"
