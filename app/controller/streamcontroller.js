@@ -60,7 +60,7 @@ exports.StartStream = (req, res) => {
             return res.status(404).json({ "error": "Can Not Start Stream, Invalid Asset ID" });
         }
         var streamIsActive = startstream.active
-        if (!streamIsActive == '0') {
+        if (streamIsActive !== '0') {
             return res.status(400).json({ "error": "Stream is already Live" });
         }
 
@@ -94,8 +94,8 @@ exports.StartStream = (req, res) => {
             "Result": 'Asset with PID' + ' ' + procid + ' ' + 'has been started'
         });
 
-        Asset.update({
-                output_nix_procid: procid
+        startstream.update({
+                output_nix_procid: procid,
                 active: 1
             },
 
