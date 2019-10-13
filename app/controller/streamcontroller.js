@@ -51,29 +51,54 @@ exports.ListDir = (req, res) => {
 
 exports.StreamStart = (req, res) => {
     console.log('streamstart');
-
-    let ffmpeg = child_process.spawn("ffmpeg", [
-        "-re",
-        "-i", "'udp://@239.195.4.3:5000?overrun_nonfatal=1&fifo_size=50000000'"
-        "-vcodec", "h264",
+    var procid = req.body.procid
+     if (!procid === '1') {
+         console.log(ffmpeg.pid)}
+   
+    
+    var input = "udp://239.195.4.3:5000/"
+    var output = "udp://10.100.40.15:7777/"
+    const { spawn } = require('child_process');
+	
+    const ffmpeg = spawn('ffmpeg', [
+        "-loglevel", "error",
+	"-re",
+        "-i", input,
+        "-vcodec","h264",
         "-r", "25",
         "-flags", "cgop+ilme",
         "-sc_threshold", "1000000000",
         "-b:v", "1.7M",
         "-minrate:v", "1.5M",
-        "-maxrate:v", "1.5M",
-        "-bufsize:v", "2M",
+        "-maxrate:v", "2.5M",
+        "-bufsize:v", "5M",
         "-acodec", "aac",
         "-ac", "2",
         "-b:a", "64k",
-        "-f", "mpegts", "'udp://10.100.40.15:7777?pkt_size=1316'"
-    ]);
-    // redirect transcoded ip-cam stream to http response
-    ffmpeg.stdout.pipe(res);
+        "-f", "mpegts", output
+    ], {
+    detached: true });
+     var procid = req.body.procid
+     console.log(procid)
+	
+	// if (procid === '1') {
+  	// console.log(ffmpeg.pid)}else{console.log('procid != 1')};
+	
+	res.status(200).json({
+            "description": "Param 1",
+            "Result": "Channel has been started"
+        });
 
-    // error logging
-    ffmpeg.stderr.setEncoding('utf8');
-    ffmpeg.stderr.on('data', (data) => {
-        console.log(data);
-    });
+ffmpeg.on('exit', (statusCode) => {
+  if (!statusCode === 0) {
+     console.log('Process Crashed')
+}
+})
+
+ffmpeg
+  .stderr
+  .on('data', (err) => {
+    console.log('err:', new String(err))
+  })	
+	
 }
