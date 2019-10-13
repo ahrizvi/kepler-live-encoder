@@ -107,7 +107,10 @@ exports.StartStream = (req, res) => {
 
         ffmpeg.stderr.on('data', (err) => {
             console.log('err:', new String(err))
-        })
-    })
+        });
+
+    }).catch(err => {
+        res.status(500).send('Error -> ' + err);
+    });
 
 }
