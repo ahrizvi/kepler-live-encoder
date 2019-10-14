@@ -6,6 +6,7 @@ module.exports = function(app) {
     const usercontroller = require('../controller/usercontroller.js');
     const assetcontroller = require('../controller/assetcontroller.js');
     const streamcontroller = require('../controller/streamcontroller.js');
+    const streamhealthcontroller = require('../controller/streamhealth.js');
 
     app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], usercontroller.signup);
 
@@ -39,4 +40,6 @@ module.exports = function(app) {
 
     app.post('/api/stopstream/:id/', streamcontroller.StopStream);
 
+    app.get('/api/streamhealth', streamhealthcontroller.index);
 }
+/
