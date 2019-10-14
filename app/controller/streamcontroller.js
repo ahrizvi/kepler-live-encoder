@@ -63,7 +63,7 @@ exports.StartStream = (req, res) => {
         if (streamIsActive !== '0') {
             return res.status(400).json({ "error": "Stream is already Live" });
         }
-
+	const name = "demoname"
         const input = "udp://239.195.4.3:5000/"
         const output = "udp://10.100.40.15:7777/"
 
@@ -76,7 +76,8 @@ exports.StartStream = (req, res) => {
             "-r", "25",
             "-flags", "cgop+ilme",
             "-sc_threshold", "1000000000",
-            "-b:v", "1.7M",
+	    "-metadata", 'comment='+`${name}`,
+	    "-b:v", "1.7M",
             "-minrate:v", "1.5M",
             "-maxrate:v", "2.5M",
             "-bufsize:v", "5M",
@@ -125,7 +126,7 @@ exports.StopStream = (req, res) => {
         if (!stopstream) {
             return res.status(404).json({ "error": "Can Not Stop Stream, Invalid Asset ID" });
         }
-        var streamIsActive = startstream.active
+        var streamIsActive = stopstream.active
         if (streamIsActive !== '1') {
             return res.status(400).json({ "error": "Stream is already in 'Stop' State" });
         }
