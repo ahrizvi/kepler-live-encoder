@@ -15,8 +15,8 @@ exports.AssetStatusOne = (req, res) => {
     console.log('assetstatusall');
 
     Asset.findOne({
-        where: { id: 1 },
-        attributes: ['name', 'input_location', 'active']
+        where: { id: req.params.id },
+	attributes: ['name', 'input_location', 'active']
 
     }).then(assetlistone => {
         res.status(200).json({
