@@ -11,22 +11,22 @@ exports.index = (req, res) => {
     });
 }
 
-exports.AssetStatusAll = (req, res) => {
-        console.log('assetstatusall');
+exports.AssetStatusOne = (req, res) => {
+    console.log('assetstatusall');
 
-        Asset.findAll({
-                //  where: {id: 1},
-                attributes: ['name', 'active', =
+    Asset.findOne({
+        where: { id: 1 },
+        attributes: ['name', 'input_location', 'active']
 
-                }).then(assetlistall => {
-                res.status(200).json({
-                    "description": "Asset List",
-                    "Result": assetlistall
-                });
-            }).catch(err => {
-                res.status(400).json({
-                    "description": "Can not update Asset",
-                    "error": err.message
-                });
-            })
-        }
+    }).then(assetlistone => {
+        res.status(200).json({
+            "description": "Asset List",
+            "Result": assetlistone
+        });
+    }).catch(err => {
+        res.status(400).json({
+            "description": "Can not update Asset",
+            "error": err.message
+        });
+    })
+}
