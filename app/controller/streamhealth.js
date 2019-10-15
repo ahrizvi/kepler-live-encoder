@@ -12,16 +12,41 @@ exports.index = (req, res) => {
 }
 
 exports.AssetStatusOne = (req, res) => {
-    console.log('assetstatusall');
+    console.log('assetstatusone');
 
     Asset.findOne({
-        where: { id: 1 },
+        where: { id: req.params.id },
         attributes: ['name', 'input_location', 'active']
 
     }).then(assetlistone => {
         res.status(200).json({
             "description": "Asset List",
             "Result": assetlistone
+        });
+    }).catch(err => {
+        res.status(400).json({
+            "description": "Can not update Asset",
+            "error": err.message
+        });
+    })
+}
+
+exports.AssetStatusAll = (req, res) => {
+    console.log('assetstatusall');
+
+    Asset.findAll({
+        //where: { id: req.params.id },
+        attributes: ['name', 'input_location', 'active']
+
+    }).then(assestatusall => {
+        var dbstatus = [];
+
+        for (var i = 0; i < assetstatusall.length; i++) {
+            dbstatus.push(assetlistone.name)
+        }
+        res.status(200).json({
+            "description": "Asset Name List",
+            "Result": dbstatus
         });
     }).catch(err => {
         res.status(400).json({
