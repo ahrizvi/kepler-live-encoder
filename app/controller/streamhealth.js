@@ -16,7 +16,11 @@ exports.AssetStatusOne = (req, res) => {
 
     Asset.findOne({
         where: { id: req.params.id },
+<<<<<<< HEAD
         attributes: ['name', 'input_location', 'active']
+=======
+	attributes: ['name', 'input_location', 'active']
+>>>>>>> 3d35d20659c3ac5f266980bcc55c94bc2929e1b8
 
     }).then(assetlistone => {
         res.status(200).json({
@@ -30,6 +34,7 @@ exports.AssetStatusOne = (req, res) => {
         });
     })
 }
+<<<<<<< HEAD
 
 exports.AssetStatusAll = (req, res) => {
     console.log('assetstatusall');
@@ -55,3 +60,5 @@ exports.AssetStatusAll = (req, res) => {
         });
     })
 }
+=======
+>>>>>>> 3d35d20659c3ac5f266980bcc55c94bc2929e1b8
