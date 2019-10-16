@@ -51,29 +51,32 @@ exports.AssetStatusAll = (req, res) => {
                 var assetname = assetlistone.name
                 var procid = assetlistone.output_nix_procid
                 var inloc = assetlistone.input_location
+		console.log(procid);	
 
-                ps.lookup({ pid: procid },
+ 		var ps = require('ps-node');               
+		ps.lookup({ pid: 123 },
                     function(err, resultList) {
                         if (err) {
                             throw new Error(err);
-                        }
+                       }
 
                         resultList.forEach(function(process) {
                             if (process) {
 
-                                console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
+                             //   console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
                                 sys_proc_cmd = process.command
                                 sys_proc_args = process.arguments
 
 
-                                db_input_loc = "udp://239.195.4.3:5000/"
-                                db_proc_cmd = "ffmpeg"
+                                  db_input_loc = "udp://239.195.4.3:5000/"
+                                  db_proc_cmd = "ffmpeg"
 
-                                var chk1 = sys_proc_args.includes(db_input_loc)
-                                var chk2 = sys_proc_cmd.includes(db_proc_cmd)
-                                console.log(chk1, chk2);
+                                  var chk1 = sys_proc_args.includes(db_input_loc)
+                                  var chk2 = sys_proc_cmd.includes(db_proc_cmd)
+                                  var chk3 = chk1+' '+chk2
+				  console.log(chk3);
 
-                            } else {
+                            }else{
                                 console.log('No such process found!');
                             }
                         });
@@ -83,7 +86,7 @@ exports.AssetStatusAll = (req, res) => {
 
         })
 
-    })
+   // })
 
     res.status(200).json({
         "description": "Asset List",
@@ -98,4 +101,6 @@ exports.AssetStatusAll = (req, res) => {
     //           "error": err.message
     //       });
     //  })
+})
+
 }
