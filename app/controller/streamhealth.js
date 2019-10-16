@@ -33,37 +33,48 @@ exports.AssetStatusOne = (req, res) => {
 
 exports.AssetStatusAll = (req, res) => {
 
-    Asset.findAll({
-        where: { active: 1 }
-    }).map(el => el.get('id')).then(assetlistall => {
+	const {exec} = require('child_process');
+        const child = exec("ls")
+           
+	     
+         child.stdout.on('data', (data) => {
+         var resultsArr = data.split('\n')
+         console.log(resultsArr);
+         }).then(corefunction => { 
 
-        activeAssetArr = assetlistall
-        console.log(activeAssetArr);
+ 	 Asset.findAll({
+  	  	where: { active: 1 }
+ 
+   	 }).map(el => el.get('id')).then(assetlistall => {
 
-        activeAssetArr.forEach(element => {
+        	activeAssetArr = assetlistall
+		activeAssetArr.forEach(element => {
 
-            console.log(element)
 
-            Asset.findOne({
-                where: { id: element },
-                attributes: ['name', 'input_location', 'active']
+           Asset.findOne({
+           where: { id: element },
+           attributes: ['id', 'name', 'input_location', 'output_nix_procid']
             }).then(assetlistone => {
-                console.log(assetlistone.name);
-                console.log(assetlistone.input_location)
-                console.log(assetlistone.active)
+             console.log(assetlistone.id);
+	     console.log(assetlistone.name);
+//           console.log(assetlistone.input_location)
+//                console.log(assetlistone.output_nix_procid)
 
-            })
+            						 })
 
-        })
+	   						})
 
         res.status(200).json({
             "description": "Asset List",
-            "Result": assetlistall
+            "Result": "assetlistall"
         });
-    }).catch(err => {
-        res.status(400).json({
-            "description": "Can not update Asset",
-            "error": err.message
-        });
-    })
+ })
+
+	})
+//	.catch(err => {
+//        res.status(400).json({
+//            "description": "Can not update Asset",
+ //           "error": err.message
+ //       });
+  //  })
 }
