@@ -40,10 +40,10 @@ module.exports = function(app) {
 
     app.post('/api/stopstream/:id/', streamcontroller.StopStream);
 
-    app.get('/api/streamhealth', streamhealthcontroller.index);
+    app.get('/api/streamstatus/index', streamhealthcontroller.index);
 
-    app.get('/api/streamhealth/:id', streamhealthcontroller.AssetStatusOne);
+    app.get('/api/streamstatus/:id', streamhealthcontroller.AssetStatusOne);
 
-    app.get('/api/streamhealth/all', streamhealthcontroller.AssetStatusAll);
+    app.get('/api/streamstatus/', streamhealthcontroller.AssetStatusAll);
 
 }

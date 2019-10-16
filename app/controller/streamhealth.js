@@ -16,11 +16,7 @@ exports.AssetStatusOne = (req, res) => {
 
     Asset.findOne({
         where: { id: req.params.id },
-<<<<<<< HEAD
         attributes: ['name', 'input_location', 'active']
-=======
-	attributes: ['name', 'input_location', 'active']
->>>>>>> 3d35d20659c3ac5f266980bcc55c94bc2929e1b8
 
     }).then(assetlistone => {
         res.status(200).json({
@@ -34,24 +30,34 @@ exports.AssetStatusOne = (req, res) => {
         });
     })
 }
-<<<<<<< HEAD
 
 exports.AssetStatusAll = (req, res) => {
-    console.log('assetstatusall');
 
-    Asset.findAll({
-        //where: { id: req.params.id },
+Asset.findAll({
+        where: { active: 1 }
+    }).map(el => el.get('id')).then(assetlistall => {
+       
+	activeAssetArr = assetlistall
+	console.log(activeAssetArr); 
+	
+	activeAssetArr.forEach(element => {
+	
+	console.log(element)
+
+	Asset.findOne({
+        where: { id: element },
         attributes: ['name', 'input_location', 'active']
+	}).then(assetlistone => {
+		console.log(assetlistone.name);
+	
+	})
 
-    }).then(assestatusall => {
-        var dbstatus = [];
+		})
+//	}
 
-        for (var i = 0; i < assetstatusall.length; i++) {
-            dbstatus.push(assetlistone.name)
-        }
-        res.status(200).json({
-            "description": "Asset Name List",
-            "Result": dbstatus
+	res.status(200).json({
+            "description": "Asset List",
+            "Result": assetlistall
         });
     }).catch(err => {
         res.status(400).json({
@@ -60,5 +66,4 @@ exports.AssetStatusAll = (req, res) => {
         });
     })
 }
-=======
->>>>>>> 3d35d20659c3ac5f266980bcc55c94bc2929e1b8
+
