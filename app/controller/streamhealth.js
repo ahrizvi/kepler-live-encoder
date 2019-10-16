@@ -51,61 +51,44 @@ exports.AssetStatusAll = (req, res) => {
                 var dbassetname = assetlistone.name
                 var dbprocid = assetlistone.output_nix_procid
                 var dbinloc = assetlistone.input_location
-                console.log(procid);
+                console.log(dbprocid);
+		
+		
+		var ps = require('ps-node');
+ 
+	// A simple pid lookup
+		ps.lookup({ pid: 19890 }, function(err, resultList ) {
+    		if (err) {
+        	throw new Error( err );
+   		 }
+ 
+		   var process = resultList[ 0 ];
+ 
+    if( process ){
+ 
+        console.log( 'PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments );
+	 sys_proc_cmd  = process.command
+         sys_proc_args = process.arguments
+	 
+	 db_input_loc = "udp://239.195.4.3:5000/"
+         db_proc_cmd = "ffmpeg"
 
-                var ps = require('ps-node');
-                ps.lookup({ pid: dbprocid },
-                    function(err, resultList) {
-                        if (err) {
-                            throw new Error(err);
-                        }
+                var chk1 = sys_proc_args.includes(db_input_loc)
+                var chk2 = sys_proc_cmd.includes(db_proc_cmd)
+                console.log(chk1,chk2);
 
-                        resultList.forEach(function(process) {
-                            if (process) {
+    } else {
+        console.log( 'No such process found!' );
+ 		   }
+		});
 
-                                //   console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
 
-                                sys_proc_cmd = process.command
-                                sys_proc_args = process.arguments
+})
 
-                                var chk1 = process.pid
-
-                                if (!chk1) {
-                                    return res.status(404).send('Process Live Check 1 failed. No Process found');
-                                }
-
-                                var chk2 = sys_proc_args.includes(dbinloc)
-                                if (chk2 != true) {
-                                    return res.status(404).send('Process Live Check 2 failed');
-                                }
-
-                                var chk3 = sys_proc_cmd.includes(FFMPEG)
-
-                                if (chk3 != true) {
-                                    return res.status(404).send('Process Live Check 3 failed. Process no more belongs to FFMPEG');
-                                }
-                            }
-
-                        });
-                    });
-
-            })
-
-        })
 
         res.status(200).json({
             "description": "Asset List",
             "Result": "assetlistall"
         });
-        // }
-
-
-        //	.catch(err => {
-        //        res.status(400).json({
-        //            "description": "Can not update Asset",
-        //           "error": err.message
-        //       });
-        //  })
-    })
 
 }
