@@ -33,29 +33,30 @@ exports.AssetStatusOne = (req, res) => {
 
 exports.AssetStatusAll = (req, res) => {
 
-Asset.findAll({
+    Asset.findAll({
         where: { active: 1 }
     }).map(el => el.get('id')).then(assetlistall => {
-       
-	activeAssetArr = assetlistall
-	console.log(activeAssetArr); 
-	
-	activeAssetArr.forEach(element => {
-	
-	console.log(element)
 
-	Asset.findOne({
-        where: { id: element },
-        attributes: ['name', 'input_location', 'active']
-	}).then(assetlistone => {
-		console.log(assetlistone.name);
-	
-	})
+        activeAssetArr = assetlistall
+        console.log(activeAssetArr);
 
-		})
-//	}
+        activeAssetArr.forEach(element => {
 
-	res.status(200).json({
+            console.log(element)
+
+            Asset.findOne({
+                where: { id: element },
+                attributes: ['name', 'input_location', 'active']
+            }).then(assetlistone => {
+                console.log(assetlistone.name);
+                console.log(assetlistone.input_location)
+                console.log(assetlistone.active)
+
+            })
+
+        })
+
+        res.status(200).json({
             "description": "Asset List",
             "Result": assetlistall
         });
@@ -66,4 +67,3 @@ Asset.findAll({
         });
     })
 }
-
