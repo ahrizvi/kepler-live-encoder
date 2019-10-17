@@ -56,7 +56,7 @@ exports.AssetStatusAll = (req, res) => {
                 var ps = require('ps-node');
 
                 // A simple pid lookup
-                ps.lookup({ pid: 12345 }, function(err, resultList) {
+                ps.lookup({ pid: dbprocid }, function(err, resultList) {
                     if (err) {
                         throw new Error(err);
                     }
@@ -78,13 +78,13 @@ exports.AssetStatusAll = (req, res) => {
                         var chk1 = sys_proc_args.includes(db_input_loc)
                         var chk2 = sys_proc_cmd.includes(db_proc_cmd)
                         console.log(chk1, chk2);
-                        statchecker = [chk1, chk2]
-                        groundtruth = ['true', 'true']
+                   	var statchecker = [chk1, chk2]
+                        var groundtruth = ['true', 'true']
 
-                        console.log(statschecker);
+                        console.log(statchecker);
                         console.log(groundtruth);
 
-                        if (statscheker != groundtruth) {
+                        if (statchecker != groundtruth) {
                             assetlistone.update({
                                     output_nix_procid: 0,
                                     active: 0
