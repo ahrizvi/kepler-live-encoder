@@ -76,24 +76,22 @@ exports.StartStream = (req, res) => {
         const acodec = startstream.output_aud_codec
         const output = startstream.output_location
 
-	console.log(name);
-	console.log(input);
-	console.log(vcodec);
-	console.log(fps);
-	console.log(vidsize);
-	console.log(vbitrt);
-	console.log(vminrt);
-	console.log(vmaxrt);
-	console.log(vbuffer);
-	console.log(abitrt);
-	console.log(acodec);
-	console.log(output);
-
-
+        //console.log(name);
+        //console.log(input);
+        //console.log(vcodec);
+        //console.log(fps);
+        //console.log(vidsize);
+        //console.log(vbitrt);
+        //console.log(vminrt);
+        //console.log(vmaxrt);
+        //console.log(vbuffer);
+        //console.log(abitrt);
+        //console.log(acodec);
+        //console.log(output);
 
         const { spawn } = require('child_process');
         const ffmpeg = spawn('ffmpeg', [
-        //    "-loglevel", "error",
+            "-loglevel", "error",
             "-re",
             "-i", input,
             "-vcodec", vcodec,
@@ -120,15 +118,11 @@ exports.StartStream = (req, res) => {
         });
 
         startstream.update({
-                output_nix_procid: procid,
-                active: 1
-            },
-
-            { where: { id: req.params.id } })
-
-
-        var dummy = 'dummy1'
-        console.log(dummy);
+            output_nix_procid: procid,
+            active: 1
+        }, { where: { id: req.params.id } })
+        var updatestatus = 'stream status has been update in DB'
+        console.log(updatestatus);
 
         ffmpeg.stderr.on('data', (err) => {
             console.log('err:', new String(err))
@@ -137,7 +131,6 @@ exports.StartStream = (req, res) => {
     }).catch(err => {
         res.status(500).send('Error -> ' + err);
     });
-
 }
 
 exports.StopStream = (req, res) => {
@@ -166,8 +159,8 @@ exports.StopStream = (req, res) => {
 
             { where: { id: req.params.id } })
 
-        var dummy = 'dummy1'
-        console.log(dummy);
+        var updatestatus = 'stream status has been update in DB'
+        console.log(updatestatus);
 
         ffmpeg.stderr.on('data', (err) => {
             console.log('err:', new String(err))

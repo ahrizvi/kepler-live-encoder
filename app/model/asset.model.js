@@ -31,16 +31,16 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         output_vid_bitrate: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         output_vid_minrate: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         output_vid_maxrate: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         output_vid_buffer: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         output_vid_logopath: {
             type: Sequelize.STRING
@@ -55,10 +55,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         output_aud_bitrate: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         output_muxrate: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         output_sdt_spname: {
             type: Sequelize.STRING
@@ -70,7 +70,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         active: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         }
     });
     return Asset;
