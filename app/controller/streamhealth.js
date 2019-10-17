@@ -62,22 +62,36 @@ exports.AssetStatusAll = (req, res) => {
                     }
 
                     var process = resultList[0];
-		    console.log(dbinloc);
+                    console.log(dbinloc);
 
                     if (process) {
 
                         console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
                         sys_proc_cmd = process.command
                         sys_proc_args = process.arguments
-				
-			console.log(dbinloc)
-			
-			db_input_loc = [dbinloc,'CHK1']
-			db_proc_cmd =  [dbprocid, 'CHK2']
+
+                        console.log(dbinloc)
+
+                        db_input_loc = [dbinloc, 'CHK1']
+                        db_proc_cmd = [dbprocid, 'CHK2']
 
                         var chk1 = sys_proc_args.includes(db_input_loc)
                         var chk2 = sys_proc_cmd.includes(db_proc_cmd)
                         console.log(chk1, chk2);
+                        statchecker = [chk1, chk2]
+                        groundtruth = ['true', 'true']
+
+                        console.log(statschecker);
+                        console.log(groundtruth);
+
+                        if (statscheker != groundtruth) {
+                            assetlistone.update({
+                                    output_nix_procid: 0,
+                                    active: 0
+                                },
+
+                                { where: { id: assetlistone.id } })
+                        }
 
                     } else {
                         console.log('No such process found!');
