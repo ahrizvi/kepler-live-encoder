@@ -65,7 +65,7 @@ exports.StartStream = (req, res) => {
         }
         const name = startstream.name
         const input = startstream.input_location
-        const vcodec = startstream.output_vid_vcodec
+        const vcodec = startstream.output_vid_codec
         const fps = startstream.output_vid_fps
         const vidsize = startstream.output_vid_res
         const vbitrt = startstream.output_vid_bitrate
@@ -73,12 +73,27 @@ exports.StartStream = (req, res) => {
         const vmaxrt = startstream.output_vid_maxrate
         const vbuffer = startstream.output_vid_buffer
         const abitrt = startstream.output_aud_bitrate
-        const acodec = startstream.output_aud_vcodec
+        const acodec = startstream.output_aud_codec
         const output = startstream.output_location
+
+	console.log(name);
+	console.log(input);
+	console.log(vcodec);
+	console.log(fps);
+	console.log(vidsize);
+	console.log(vbitrt);
+	console.log(vminrt);
+	console.log(vmaxrt);
+	console.log(vbuffer);
+	console.log(abitrt);
+	console.log(acodec);
+	console.log(output);
+
+
 
         const { spawn } = require('child_process');
         const ffmpeg = spawn('ffmpeg', [
-            "-loglevel", "error",
+        //    "-loglevel", "error",
             "-re",
             "-i", input,
             "-vcodec", vcodec,
