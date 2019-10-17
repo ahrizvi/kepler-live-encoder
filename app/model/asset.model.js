@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         name: {
             type: Sequelize.STRING,
-	    allowNull: false
+            allowNull: false
         },
         input_location: {
             type: Sequelize.STRING
@@ -31,6 +31,15 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         output_vid_bitrate: {
+            type: Sequelize.INTEGER
+        },
+        output_vid_minrate: {
+            type: Sequelize.INTEGER
+        },
+        output_vid_maxrate: {
+            type: Sequelize.INTEGER
+        },
+        output_vid_buffer: {
             type: Sequelize.INTEGER
         },
         output_vid_logopath: {

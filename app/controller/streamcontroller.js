@@ -63,9 +63,18 @@ exports.StartStream = (req, res) => {
         if (streamIsActive !== '0') {
             return res.status(400).json({ "error": "Stream is already Live" });
         }
-        const name = "demoname"
-        const input = "udp://239.195.4.3:5000/"
-        const output = "udp://10.100.40.15:7777/"
+        const name = startstream.name
+        const input = startstream.input_location
+        const vcodec = startstream.output_vid_vcodec
+        const fps = startstream.output_vid_fps
+        const vidsize = startstream.output_vid_res
+        const vbitrt = startstream.output_vid_bitrate
+        const vminrt = startstream.output_vid_minrate
+        const vmaxrt = startstream.output_vid_maxrate
+        const vbuffer = startstream.output_vid_buffer
+        const abitrt = startstream.output_aud_bitrate
+        const acodec = startstream.output_aud_vcodec
+        const output = startstream.output_location
 
         const { spawn } = require('child_process');
         const ffmpeg = spawn('ffmpeg', [

@@ -78,8 +78,8 @@ exports.AssetStatusAll = (req, res) => {
                         var chk1 = sys_proc_args.includes(db_input_loc)
                         var chk2 = sys_proc_cmd.includes(db_proc_cmd)
                         console.log(chk1, chk2);
-                   	var statchecker = [chk1, chk2]
-                        var groundtruth = ['true', 'true']
+                        var statchecker = [chk1, chk2]
+                        var groundtruth = [true, true]
 
                         console.log(statchecker);
                         console.log(groundtruth);
