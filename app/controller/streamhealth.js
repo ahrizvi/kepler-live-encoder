@@ -76,8 +76,8 @@ exports.AssetStatusAll = (req, res) => {
                             //  console.log(chk1, chk2);
                         var arr1 = [chk1, chk2]
                         var arr2 = [true, true]
-                        console.log(arr1);
-                        console.log(arr2);
+                            // console.log(arr1);
+                            // console.log(arr2);
                         var arraysMatch = function(arr1, arr2) {
                             // Check if the arrays are the same length
                             if (arr1.length !== arr2.length) return false;
@@ -88,9 +88,10 @@ exports.AssetStatusAll = (req, res) => {
                                 // Otherwise, return true
                                 return true;
                             };
-                            console.log(arraysMatch(arr1, arr2));
-                        }
-
+			}  
+			arrMatchResult = arraysMatch(arr1, arr2)
+			console.log(arrMatchResult);
+				
                     } else {
                         console.log('No such process found!');
 
