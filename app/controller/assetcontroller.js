@@ -17,22 +17,25 @@ exports.assetCreate = (req, res) => {
 
     Asset.create({
         name: req.body.name,
-        input_location: req.body.inloc,
-        input_interface: req.body.inintfs,
-        output_location: req.body.outloc,
-        output_interface: req.body.outintfs,
-        output_vid_res: req.body.outvdores,
-        output_vid_fps: req.body.outvdofps,
-        output_vid_codec: req.body.outvdocodec,
-        output_vid_bitrate: req.body.outvdobitrt,
-        output_vid_logopath: req.body.outlogopth,
-        output_vid_logo_xaxis: req.body.outlogoxax,
-        output_vid_logo_yaxis: req.body.outlogoyax,
-        output_aud_codec: req.body.outaudcodec,
-        output_aud_bitrate: req.body.outaudbitrt,
-        output_muxrate: req.body.outmuxrt,
-        output_sdt_spname: req.body.outsdtspn,
-        output_sdt_sname: req.body.outsdtsn,
+        input_location: req.body.iloc,
+        input_interface: req.body.iintfs,
+        output_location: req.body.oloc,
+        output_interface: req.body.ointfs,
+        output_vid_res: req.body.ovdores,
+        output_vid_fps: req.body.ovdofps,
+        output_vid_codec: req.body.ovdocodec,
+        output_vid_bitrate: req.body.ovdobitrt,
+        output_vid_minrate: req.body.ovdominrt,
+        output_vid_maxrate: req.body.ovdomaxrt,
+        output_vid_buffer: req.body.ovdobufr,
+        output_vid_logopath: req.body.ologopth,
+        output_vid_logo_xaxis: req.body.ologoxax,
+        output_vid_logo_yaxis: req.body.ologoyax,
+        output_aud_codec: req.body.oaudcodec,
+        output_aud_bitrate: req.body.oaudbitrt,
+        output_muxrate: req.body.omuxrt,
+        output_sdt_spname: req.body.osdtspn,
+        output_sdt_sname: req.body.osdtsn,
         output_nix_procid: 00000,
         active: 0
 
@@ -54,22 +57,25 @@ exports.assetUpdate = (req, res) => {
 
     Asset.update({
             name: req.body.name,
-            input_location: req.body.inloc,
-            input_interface: req.body.inintfs,
-            output_location: req.body.outloc,
-            output_interface: req.body.outintfs,
-            output_vid_res: req.body.outvdores,
-            output_vid_fps: req.body.outvdofps,
-            output_vid_codec: req.body.outvdocodec,
-            output_vid_bitrate: req.body.outvdobitrt,
-            output_vid_logopath: req.body.outlogopth,
-            output_vid_logo_xaxis: req.body.outlogoxax,
-            output_vid_logo_yaxis: req.body.outlogoyax,
-            output_aud_codec: req.body.outaudcodec,
-            output_aud_bitrate: req.body.outaudbitrt,
-            output_muxrate: req.body.outmuxrt,
-            output_sdt_spname: req.body.outsdtspn,
-            output_sdt_sname: req.body.outsdtsn,
+            input_location: req.body.iloc,
+            input_interface: req.body.iintfs,
+            output_location: req.body.oloc,
+            output_interface: req.body.ointfs,
+            output_vid_res: req.body.ovdores,
+            output_vid_fps: req.body.ovdofps,
+            output_vid_codec: req.body.ovdocodec,
+            output_vid_bitrate: req.body.ovdobitrt,
+            output_vid_minrate: req.body.ovdominrt,
+            output_vid_maxrate: req.body.ovdomaxrt,
+            output_vid_buffer: req.body.ovdobufr,
+            output_vid_logopath: req.body.ologopth,
+            output_vid_logo_xaxis: req.body.ologoxax,
+            output_vid_logo_yaxis: req.body.ologoyax,
+            output_aud_codec: req.body.oaudcodec,
+            output_aud_bitrate: req.body.oaudbitrt,
+            output_muxrate: req.body.omuxrt,
+            output_sdt_spname: req.body.osdtspn,
+            output_sdt_sname: req.body.osdtsn,
             output_nix_procid: 00000,
             active: 0
         },
@@ -137,7 +143,7 @@ exports.AssetDeleteOne = (req, res) => {
         //attributes: []
     }).then(assetdeleteone => {
         if (!assetdeleteone) {
-            return res.status(404).json({"error": "Asset not found or already deleted"});
+            return res.status(404).json({ "error": "Asset not found or already deleted" });
         }
         Asset.destroy({
             where: {
@@ -150,9 +156,9 @@ exports.AssetDeleteOne = (req, res) => {
         });
 
     }).catch(err => {
-            res.status(500).json({
-                "description": "Asset can not be deleted due to an unknown error",
-                "error": err.message
-            });
-        })
-    }
+        res.status(500).json({
+            "description": "Asset can not be deleted due to an unknown error",
+            "error": err.message
+        });
+    })
+}
