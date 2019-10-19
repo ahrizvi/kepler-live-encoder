@@ -8,42 +8,42 @@ module.exports = function(app) {
     const streamcontroller = require('../controller/streamcontroller.js');
     const streamhealthcontroller = require('../controller/streamhealth.js');
 
-    app.post('/api/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], usercontroller.signup);
+    app.post('/api/v1/auth/signup', [verifySignUp.checkDuplicateUserNameOrEmail, verifySignUp.checkRolesExisted], usercontroller.signup);
 
-    app.post('/api/auth/signin', usercontroller.signin);
+    app.post('/api/v1/auth/signin', usercontroller.signin);
 
-    app.get('/api/test/user', [authJwt.verifyToken], usercontroller.userContent);
+    app.get('/api/v1/test/user', [authJwt.verifyToken], usercontroller.userContent);
 
-    app.get('/api/test/pm', [authJwt.verifyToken, authJwt.isPmOrAdmin], usercontroller.managementBoard);
+    app.get('/api/v1/test/pm', [authJwt.verifyToken, authJwt.isPmOrAdmin], usercontroller.managementBoard);
 
-    app.get('/api/test/admin', [authJwt.verifyToken, authJwt.isAdmin], usercontroller.adminBoard);
+    app.get('/api/v1/test/admin', [authJwt.verifyToken, authJwt.isAdmin], usercontroller.adminBoard);
 
-    app.get('/api/index', assetcontroller.index);
+    app.get('/api/v1/index', assetcontroller.index);
 
     //    app.post('/api/assetcreate',[authJwt.verifyToken, authJwt.isAdmin],assetcontroller.assetcreate);
 
-    app.post('/api/assetcreate', assetcontroller.assetCreate);
+    app.post('/api/v1/asset/create', assetcontroller.assetCreate);
 
-    app.post('/api/assetupdate/:id', assetcontroller.assetUpdate);
+    app.post('/api/v1/asset/update/id/:id', assetcontroller.assetUpdate);
 
-    app.get('/api/assetlist/', assetcontroller.AssetListAll);
+    app.get('/api/v1/asset/list/all/', assetcontroller.AssetListAll);
 
-    app.get('/api/asset/:id/', assetcontroller.AssetListOne);
+    app.get('/api/v1/asset/list/:id/', assetcontroller.AssetListOne);
 
-    app.delete('/api/assetdelete/:id/', assetcontroller.AssetDeleteOne);
+    app.delete('/api/v1/asset/aelete/id/:id/', assetcontroller.AssetDeleteOne);
 
-    app.get('/api/stream/index', streamcontroller.index);
+    app.get('/api/v1/stream/index', streamcontroller.index);
 
-    app.get('/api/stream/listdir', streamcontroller.ListDir);
+    app.get('/api/v1/stream/listdir', streamcontroller.ListDir);
 
-    app.post('/api/startstream/:id/', streamcontroller.StartStream);
+    app.post('/api/v1/stream/start/id/:id/', streamcontroller.StartStream);
 
-    app.post('/api/stopstream/:id/', streamcontroller.StopStream);
+    app.post('/api/v1/stream/stop/id/:id/', streamcontroller.StopStream);
 
-    app.get('/api/streamstatus/index', streamhealthcontroller.index);
+    app.get('/api/v1/stream/status/index', streamhealthcontroller.index);
 
-    app.get('/api/streamstatus/:id', streamhealthcontroller.AssetStatusOne);
+    app.get('/api/v1/stream/status/id/:id', streamhealthcontroller.AssetStatusOne);
 
-    app.get('/api/streamstatus/', streamhealthcontroller.AssetStatusAll);
+    app.get('/api/v1/stream/status/all', streamhealthcontroller.AssetStatusAll);
 
 }

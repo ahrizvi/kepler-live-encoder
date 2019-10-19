@@ -24,21 +24,43 @@ exports.AssetStatusOne = (req, res) => {
 
     }).then(assetlistone => {
         res.status(200).json({
-            "description": "Asset List",
+            "description": "Asset Status",
             "Result": assetlistone
         });
     }).catch(err => {
         res.status(400).json({
-            "description": "Can not update Asset",
+            "description": "Can not fetch Asset Status",
             "error": err.message
         });
     })
 }
 
 exports.AssetStatusAll = (req, res) => {
+    console.log('assetstatusall');
+
+    Asset.findAll({
+       // where: { id: req.params.id },
+        attributes: ['name', 'input_location', 'active']
+
+    }).then(assetlistall => {
+	    res.status(200).json({
+            "description": "Asset Status List",
+            "Result": assetlistall
+        });
+    }).catch(err => {
+        res.status(400).json({
+            "description": "Can not fetch Asset Status List",
+            "error": err.message
+        });
+    })
+}
+
+
+
+exports.StreamHealthChk = (req, res) => {
+
     Asset.findAll({
         where: { active: 1 }
-
     }).map(el => el.get('id')).then(assetlistall => {
 
         activeAssetArr = assetlistall
@@ -118,10 +140,10 @@ exports.AssetStatusAll = (req, res) => {
                         });
                     }
                 });
-                res.status(200).json({
-                    "description": "Asset List",
-                    "Result": "assetlistall"
-                });
+            //    res.status(200).json({
+            //        "description": "Asset List",
+            //        "Result": "assetlistall"
+            //    });
 
             })
         })
