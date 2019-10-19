@@ -60,7 +60,7 @@ exports.AssetStatusAll = (req, res) => {
                     var process = resultList[0];
                     //  console.log(dbinloc);
                     if (process) {
-                        //  console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
+                         console.log('PID: %s, COMMAND: %s, ARGUMENTS: %s', process.pid, process.command, process.arguments);
                         sys_proc_pid = process.pid
                         sys_proc_args = process.arguments
                             //	console.log(sys_proc_args)
@@ -76,21 +76,22 @@ exports.AssetStatusAll = (req, res) => {
                             //  console.log(chk1, chk2);
                         var arr1 = [chk1, chk2]
                         var arr2 = [true, true]
-                            // console.log(arr1);
-                            // console.log(arr2);
+                           console.log(arr1);
+                           console.log(arr2);
                         var arraysMatch = function(arr1, arr2) {
                             // Check if the arrays are the same length
                             if (arr1.length !== arr2.length) return false;
                             // Check if all items exist and are in the same order
                             for (var i = 0; i < arr1.length; i++) {
                                 if (arr1[i] !== arr2[i])
-                                    return false;
-                                // Otherwise, return true
-                                return true;
+                                    return false; 
+				} 
+                            	  // Otherwise, return true
+                                return true; 
                             };
-                        }
+                       // }
                         arrMatchResult = arraysMatch(arr1, arr2)
-                        if (arrMatchResult != 'true') {
+                        if (arrMatchResult !=true) {
 
                             assetlistone.update({
                                 output_nix_procid: 0,
