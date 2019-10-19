@@ -6,6 +6,7 @@ const Asset = db.asset;
 
 const Op = db.Sequelize.Op;
 
+//please commit
 cron.schedule('* * * * *', () => {
     Asset.findAll({
         where: { active: 1 }
