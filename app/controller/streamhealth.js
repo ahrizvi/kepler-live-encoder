@@ -88,10 +88,20 @@ exports.AssetStatusAll = (req, res) => {
                                 // Otherwise, return true
                                 return true;
                             };
-			}  
-			arrMatchResult = arraysMatch(arr1, arr2)
-			console.log(arrMatchResult);
-				
+                        }
+                        arrMatchResult = arraysMatch(arr1, arr2)
+                        if (arrMatchResult != 'true') {
+
+                            assetlistone.update({
+                                output_nix_procid: 0,
+                                active: 0
+                            }, {
+                                where: { id: dbassetid }
+                            });
+                        }
+
+                        console.log(arrMatchResult);
+
                     } else {
                         console.log('No such process found!');
 
