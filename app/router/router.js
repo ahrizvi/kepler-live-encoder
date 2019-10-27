@@ -24,26 +24,26 @@ module.exports = function(app) {
 
     app.post('/api/v1/asset/create', assetcontroller.assetCreate);
 
-    app.post('/api/v1/asset/update/id/:id', assetcontroller.assetUpdate);
+    app.post('/api/v1/asset/update/:id', assetcontroller.assetUpdate);
 
     app.get('/api/v1/asset/list/all/', assetcontroller.AssetListAll);
 
     app.get('/api/v1/asset/list/:id/', assetcontroller.AssetListOne);
 
-    app.delete('/api/v1/asset/aelete/id/:id/', assetcontroller.AssetDeleteOne);
+    app.delete('/api/v1/asset/delete/:id/', assetcontroller.AssetDeleteOne);
 
     app.get('/api/v1/stream/index', streamcontroller.index);
 
     app.get('/api/v1/stream/listdir', streamcontroller.ListDir);
 
-    app.post('/api/v1/stream/start/id/:id/', streamcontroller.StartStream);
+    app.post('/api/v1/stream/start/:id/', streamcontroller.StartStream);
 
-    app.post('/api/v1/stream/stop/id/:id/', streamcontroller.StopStream);
+    app.post('/api/v1/stream/stop/:id/', streamcontroller.StopStream);
 
     app.get('/api/v1/stream/status/index', streamhealthcontroller.index);
 
-    app.get('/api/v1/stream/status/id/:id', streamhealthcontroller.AssetStatusOne);
+    app.get('/api/v1/stream/status/:id', streamhealthcontroller.AssetStatusOne);
 
-    app.get('/api/v1/stream/status/all', streamhealthcontroller.AssetStatusAll);
+    app.get('/api/v1/stream/statusall', streamhealthcontroller.AssetStatusAll);
 
 }
